@@ -48,7 +48,8 @@ A beginner-friendly computer vision project that classifies leaf photos into **5
 | `color_distribution.png` | Mean red, green and blue values per class |
 | `montage.png` | Sample photos from each class |
 
-**Observations:** `<FILL IN: 2-3 sentences, e.g. are the classes balanced, are image sizes consistent, do some classes look very similar in color?>`
+**Observations:** `The dataset contains five selected leaf classes and an additional unknown class. The class counts and image dimensions were examined to assess class balance and variation in image sizes. Sample images and colour distributions were also inspected to identify visual similarities between classes that could contribute to misclassification.`
+From class_counts.png, image_sizes.png, color_distribution.png and montage.png, we can obtain the required analysis.
 
 ## 5. Method
 
@@ -63,34 +64,31 @@ A beginner-friendly computer vision project that classifies leaf photos into **5
 
 ## 6. Results
 
-Copy the numbers from `outputs/results.json`.
-
 | Metric | Without threshold | With threshold (0.5) |
 |---|---|---|
-| Accuracy | `<FILL IN>` | `<FILL IN>` |
-| Macro-F1 | `<FILL IN>` | `<FILL IN>` |
+| Accuracy | `0.917` | `0.842` |
+| Macro-F1 | `0.913` | `0.850` |
 
 **Per-class recall**
 
 | Class | Recall |
 |---|---|
-| `<class 1>` | `<FILL IN>` |
-| `<class 2>` | `<FILL IN>` |
-| `<class 3>` | `<FILL IN>` |
-| `<class 4>` | `<FILL IN>` |
-| `<class 5>` | `<FILL IN>` |
-| unknown | `<FILL IN>` |
+| `<class 1>` | `1.00` |
+| `<class 2>` | `1.00` |
+| `<class 3>` | `0.80` |
+| `<class 4>` | `1.00` |
+| `<class 5>` | `1.00` |
+| unknown | `0.70` |
 
 ![Confusion matrix](outputs/confusion_matrix.png)
 
 ## 7. Discussion: What Gets Confused and Why
 
-`<FILL IN after running the code. Use the "Most confused pairs" printed in the notebook and the confusion matrix. Cover:>`
+The most frequent confusion among known classes occurred between Jamun healthy (P5a) and Jamun diseased (P5b), with three healthy Jamun samples classified as diseased. This may be due to similarities in leaf colour, shape, texture, or visible surface features.
 
-- Which classes are confused most often (for example: `Class A` predicted as `Class B`).
-- Likely reasons: similar leaf shape, similar color or texture, similar background, or few training images.
-- How the "unknown" class behaves: does it absorb mistakes, or do real leaves get wrongly called unknown?
-- What the confidence threshold changed (more unknowns caught, or more correct leaves rejected).
+The unknown class was correctly classified in 14 out of 20 cases (recall = 0.70), while six unknown samples were classified as one of the five known classes. These errors indicate that the model sometimes assigns unfamiliar leaf images to a known category.
+
+Without the confidence threshold, the model achieved an accuracy of 0.917 and a macro-F1 score of 0.913. Applying the threshold of 0.5 reduced accuracy to 0.842 and macro-F1 to 0.850. This illustrates a trade-off between accepting known-class predictions and rejecting uncertain samples as unknown. Further analysis of the thresholded confusion matrix is needed to determine whether the threshold improves unknown-class detection.
 
 ## 8. Limitations
 
